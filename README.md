@@ -1,16 +1,18 @@
 # Image Push
 
-用于上传本地镜像到harbor或registry
+用于上传本地镜像压缩包到harbor或registry
 
+**原理**
+通过调用registry的api接口，实现上传镜像压缩包到registry或harbor
 
-**Parameter**
-* address: registry or harbor server address,`required`
-* file: docker image tar file path,`required`
-* project: registry or harbor project name
-* username: registry or harbor username.
-* password: registry or harbor password.
-* shipTls: skip ssl verify.
-* chunkSize: default Monolithic Upload, if chunkSie is set,use Chunked Upload.
+**参数**
+* address: registry 或 harbor 服务地址，例如：http://localhost:5000,`required`
+* file: 本地压缩包路径 ，例如：/resource/alpine.tar,`required`
+* project: 项目地址，例如：library
+* username: 用户名
+* password: 密码
+* skipTls: 是否跳过ssl认证，默认为false
+* chunkSize: 默认整体上传，如果设置了chunkSie，请使用Chunked Upload
 
 ## Usage 1
 
@@ -20,13 +22,14 @@
 # run
 go run cmd/tool/main.go \
 --address http://localhost:5000 \
---username admin \
---password admin@12345 \
---project libary \
 --file ./resource/alpine.tar
+
 
 go run cmd/tool/main.go \
 --address http://localhost:5000 \
+--username admin \
+--password admin@12345 \
+--project library \
 --file ./resource/alpine.tar
 ```
 
@@ -42,11 +45,11 @@ go build -o bin/image-push cmd/tool/main.go
 --address http://localhost:5000 \
 --username admin \
 --password admin@12345 \
---project libary \
+--project library \
 --file ./resource/alpine.tar
 ```
 
-## Usage 3
+## Usage 2
 
 ### Start Server
 
@@ -62,7 +65,7 @@ curl -v --request POST http://localhost:8080/upload \
 -F "address=http://localhost:5000" \
 -F "username=admin" \
 -F "password=admin@12345" \
--F "project=libary"
+-F "project=library"
 ```
 
 ## Other
