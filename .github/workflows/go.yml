@@ -23,4 +23,5 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }} # 一个默认的变量，用来实现往 Release 中添加文件
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
+        goversion: "https://dl.google.com/go/go1.21.0.linux-amd64.tar.gz"
         project_path: "./cmd/tool"
